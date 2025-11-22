@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+      @theme {
+        --color-background: #f2f4ff;
+        --color-default: #ffffff;
+        --color-primary: #394c97;
+        --color-second: #fe5900;
+      }
+    </style>
+    <title>Projeto Escalonador</title>
+  </head>
+  <body class="py-5 bg-background">
+    <header class="w-2/3 mx-auto flex flex-col gap-2 pt-10">
+      <h1 class="text-5xl font-bold">Simulador SJF - Shortest Job First</h1>
+      <p class="text-gray-700 text-2xl">
+        Sistema de escalonamento em lote para testes e visualização
+      </p>
+    </header>
+    <main class="w-2/3 mx-auto flex flex-col pt-10 gap-10">
+      <section class="rounded-3xl border border-gray-400 bg-default p-8">
+        <form id="form-processo" class="flex flex-col gap-8">
+          <fieldset class="flex justify-between">
+            <legend class="text-left text-3xl font-medium pb-7">
+              Adicionar Processo
+            </legend>
+            <div class="flex flex-col w-[30%] gap-3">
+              <label for="processo" class="text-left font-medium"
+                >Nome do Processo</label
+              >
+              <input
+                type="text"
+                id="processo"
+                name="processo"
+                placeholder="Ex: P1"
+                class="bg-gray-100 border border-gray-300 rounded-md py-1.5 px-3"
+              />
+            </div>
+            <div class="flex flex-col w-[30%] gap-3">
+              <label for="chegada" class="text-left font-medium"
+                >Tempo de Chegada</label
+              >
+              <input
+                type="number"
+                id="chegada"
+                name="chegada"
+                placeholder="0"
+                class="bg-gray-100 border border-gray-300 rounded-md py-1.5 px-3"
+              />
+            </div>
+            <div class="flex flex-col w-[30%] gap-3">
+              <label for="execucao" class="text-left font-medium"
+                >Tempo de Execução</label
+              >
+              <input
+                type="number"
+                id="execucao"
+                name="execucao"
+                placeholder="5"
+                class="bg-gray-100 border border-gray-300 rounded-md py-1.5 px-3"
+              />
+            </div>
+          </fieldset>
+          <button
+            class="text-default font-medium flex justify-center mx-auto bg-primary w-2/5 rounded-md py-2 cursor-pointer"
+            type="submit"
+          >
+            <img class="pr-1" src="./assests/add.svg" alt="Adicionar" />
+            Adicionar Processo
+          </button>
+        </form>
+      </section>
+
+      <section class="flex justify-between">
+        <button
+          class="text-default font-medium flex justify-center bg-second w-[80%] rounded-md py-2 cursor-pointer"
+        >
+          <img class="pr-1" src="./assests/play.svg" alt="Executar" /> Executar
+          Escalonamento
+        </button>
+        <button
+          id="btn-resetar"
+          class="text-black border border-gray-300 font-medium flex justify-center bg-gray-200 w-[16%] rounded-md py-2 cursor-pointer"
+        >
+          <img class="pr-1" src="./assests/restart.svg" alt="Resetar" /> Resetar
+        </button>
+      </section>
+
+      <section
+        id="lista-processos"
+        class="flex border border-gray-300 justify-center py-8 bg-default rounded-3xl"
+      >
+        <table id="tabela" class="w-full border-collapse">
+          <tbody id="corpo-tabela">
+            <tr id="placeholder-row">
+              <td colspan="4" class="text-center text-gray-400 py-3">
+                Nenhum processo adicionado.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+    <script src="script.js" defer></script>
+  </body>
+</html>
