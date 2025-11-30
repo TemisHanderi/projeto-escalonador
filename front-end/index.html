@@ -8,21 +8,24 @@
       @theme {
         --color-background: #f2f4ff;
         --color-default: #ffffff;
-        --color-primary: #394c97;
+        --color-primary: #384a94;
+        --color-primaryl: #4e64bc;
         --color-second: #fe5900;
       }
     </style>
     <title>Projeto Escalonador</title>
   </head>
   <body class="py-5 bg-background">
+
     <header class="w-2/3 mx-auto flex flex-col gap-2 pt-10">
       <h1 class="text-5xl font-bold">Simulador SJF - Shortest Job First</h1>
       <p class="text-gray-700 text-2xl">
         Sistema de escalonamento em lote para testes e visualização
       </p>
     </header>
-    <main class="w-2/3 mx-auto flex flex-col pt-10 gap-10">
-      <section class="rounded-3xl border border-gray-400 bg-default p-8">
+
+    <main class="w-2/3 mx-auto flex flex-col py-10 gap-10">
+      <section class="rounded-3xl border border-gray-300 bg-default p-8">
         <form id="form-processo" class="flex flex-col gap-8">
           <fieldset class="flex justify-between">
             <legend class="text-left text-3xl font-medium pb-7">
@@ -65,13 +68,27 @@
               />
             </div>
           </fieldset>
-          <button
-            class="text-default font-medium flex justify-center mx-auto bg-primary w-2/5 rounded-md py-2 cursor-pointer"
-            type="submit"
-          >
-            <img class="pr-1" src="./assests/add.svg" alt="Adicionar" />
-            Adicionar Processo
-          </button>
+          <div class="flex justify-between">
+            <button
+              class="text-default font-medium flex justify-center w-[70%] bg-primary rounded-md py-2 cursor-pointer"
+              type="submit"
+            >
+              <img class="pr-1" src="./assets/add.svg" alt="Adicionar" />
+              Adicionar Processo
+            </button>
+            <button
+              id="btn-exemplos"
+              class="text-default font-medium flex justify-center w-[22%] bg-primaryl rounded-md py-2 cursor-pointer"
+              type="button"
+            >
+              <img
+                class="pr-1"
+                src="./assets/upload.svg"
+                alt="Carregar Exemplos"
+              />
+              Carregar Exemplos
+            </button>
+          </div>
         </form>
       </section>
 
@@ -79,20 +96,20 @@
         <button
           class="text-default font-medium flex justify-center bg-second w-[80%] rounded-md py-2 cursor-pointer"
         >
-          <img class="pr-1" src="./assests/play.svg" alt="Executar" /> Executar
+          <img class="pr-1" src="./assets/play.svg" alt="Executar" /> Executar
           Escalonamento
         </button>
         <button
           id="btn-resetar"
           class="text-black border border-gray-300 font-medium flex justify-center bg-gray-200 w-[16%] rounded-md py-2 cursor-pointer"
         >
-          <img class="pr-1" src="./assests/restart.svg" alt="Resetar" /> Resetar
+          <img class="pr-1" src="./assets/restart.svg" alt="Resetar" /> Resetar
         </button>
       </section>
 
       <section
         id="lista-processos"
-        class="flex border border-gray-300 justify-center py-8 bg-default rounded-3xl"
+        class="flex border border-gray-300 justify-center py-6 bg-default rounded-3xl"
       >
         <table id="tabela" class="w-full border-collapse">
           <tbody id="corpo-tabela">
@@ -104,7 +121,44 @@
           </tbody>
         </table>
       </section>
+      <section class="flex justify-between">
+        <article
+          class="medias hidden flex w-[45%] gap-5 bg-default border border-gray-300 rounded-2xl p-5"
+        >
+          <img
+            src="./assets/clock.svg"
+            class="bg-[#edeff8] p-2 ml-2 rounded-2xl w-15"
+            alt="Relógio"
+          />
+          <div class="flex flex-col">
+            <p class="text-gray-500">Tempo Médio de Espera</p>
+            <p id="media-espera" class="text-2xl font-bold"></p>
+          </div>
+        </article>
+
+        <article
+          class="medias hidden flex w-[45%] gap-5 bg-default border border-gray-300 rounded-2xl p-5"
+        >
+          <img
+            src="./assets/trending.svg"
+            class="bg-[#ffeee6] p-2 ml-2 rounded-2xl w-15"
+            alt="Margem"
+          />
+          <div class="flex flex-col">
+            <p class="text-gray-500">Tempo Médio de Turnaround</p>
+            <p id="media-turnaround" class="text-2xl font-bold"></p>
+          </div>
+        </article>
+      </section>
+
+      <section id="gantt-section" class="hidden rounded-3xl border border-gray-300 bg-default p-8">
+        <h2 class="text-left text-3xl font-medium pb-7">Gráfico de Gantt</h2>
+        <div
+          id="gantt-chart"
+          class="flex bg-gray-50 items-center rounded-xl gap-1"
+        ></div>
+      </section>
     </main>
-    <script src="script.js" defer></script>
+    <script type="module" src="../back-end/script.js" defer></script>
   </body>
 </html>
