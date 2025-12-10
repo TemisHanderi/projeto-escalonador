@@ -181,7 +181,7 @@ function gerarGantt(execucaoTimeline) {
     const duracao = item.fim - item.inicio;
 
     bloco.className =
-      "flex items-center justify-center text-white font-bold rounded-xl";
+      "flex items-center justify-center text-white font-bold rounded-xl flex-shrink-0";
     bloco.style.width = `${duracao * 50}px`;
     bloco.style.height = "80px";
 
@@ -209,17 +209,29 @@ function voltarModoNormal() {
 function carregarExemplos() {
   voltarModoNormal();
 
-  const exemplos = [
-    { nome: "P1", chegada: 0, execucao: 4 },
-    { nome: "P2", chegada: 1, execucao: 2 },
-    { nome: "P3", chegada: 2, execucao: 7 },
-    { nome: "P4", chegada: 3, execucao: 3 },
-    { nome: "P5", chegada: 4, execucao: 4 }
-  ];
+  const exemplos = gerarProcessos(100);
 
   localStorage.setItem(storageKey, JSON.stringify(exemplos));
   atualizarTabela();
 }
+
+function gerarProcessos(numProcessos) {
+  const processos = [];
+  const max_execucao = 10;
+
+  for(let i = 0; i < numProcessos; i++) {
+    const nomeProcesso = `P${i + 1}`;
+    const chegadaProcesso = i;
+    const execucaoProcesso = Math.floor(Math.random() * max_execucao) + 1;
+
+    processos.push({
+      nome: nomeProcesso,
+      chegada: chegadaProcesso,
+      execucao: execucaoProcesso
+    });
+  }
+  return processos;
+} 
 
 form.addEventListener("submit", enviarProcessos);
 btnExecutar.addEventListener("click", executarEscalonamento);

@@ -153,10 +153,12 @@
 
       <section id="gantt-section" class="hidden rounded-3xl border border-gray-300 bg-default p-8">
         <h2 class="text-left text-3xl font-medium pb-7">Gráfico de Gantt</h2>
-        <div
-          id="gantt-chart"
-          class="flex bg-gray-50 items-center rounded-xl gap-1"
-        ></div>
+        <div class="overflow-x-auto p-2">
+          <div
+            id="gantt-chart"
+            class="flex flex-nowrap bg-gray-50 items-center rounded-xl gap-1"
+          ></div>
+        </div>
       </section>
     </main>
     <script type="module" src="./js/script.js" defer></script>
