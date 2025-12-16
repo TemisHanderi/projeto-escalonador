@@ -2,10 +2,10 @@ export function calcularSJFPreemptivo(processos) {
   let tempo = 0;
   const n = processos.length;
   let completos = 0;
-  const execRestante = processos.map(p => p.execucao);
+  const execRestante = processos.map((p) => p.execucao);
 
   // Inicializa atributos
-  processos.forEach(p => {
+  processos.forEach((p) => {
     p.inicio = null;
     p.conclusao = 0;
     p.espera = 0;
@@ -30,6 +30,24 @@ export function calcularSJFPreemptivo(processos) {
     }
 
     if (menor === -1) {
+      if (processoAnterior !== null) {
+        execucaoTimeline.push({
+          nome: processos[processoAnterior].nome,
+          inicio: blocoInicio,
+          fim: tempo,
+          indice: processoAnterior,
+        });
+        processoAnterior = null;
+      }
+
+      execucaoTimeline.push({
+        nome: "CPU Ociosa",
+        inicio: tempo,
+        fim: tempo + 1,
+        indice: -1,
+      });
+
+      blocoInicio = tempo + 1;
       tempo++;
       continue;
     }
@@ -45,7 +63,7 @@ export function calcularSJFPreemptivo(processos) {
         nome: processos[processoAnterior].nome,
         inicio: blocoInicio,
         fim: tempo,
-        indice: processoAnterior
+        indice: processoAnterior,
       });
       blocoInicio = tempo;
     }
@@ -66,7 +84,7 @@ export function calcularSJFPreemptivo(processos) {
         nome: processos[menor].nome,
         inicio: blocoInicio,
         fim: tempo,
-        indice: menor
+        indice: menor,
       });
       processoAnterior = null;
       blocoInicio = tempo;
@@ -84,6 +102,6 @@ export function calcularSJFPreemptivo(processos) {
     processos,
     tempoMedioEspera,
     tempoMedioTurnaround,
-    execucaoTimeline
+    execucaoTimeline,
   };
 }
