@@ -8,23 +8,24 @@ const btnResetar = document.getElementById("btn-resetar");
 const btnExecutar = document.querySelector("section button.bg-second");
 const mediasArticles = document.querySelectorAll(".medias");
 const btnExemplos = document.getElementById("btn-exemplos");
+const thead = document.getElementById("table-head");
 
 let modoResultado = false;
 
 function atualizarTabela() {
   let processos = JSON.parse(localStorage.getItem(storageKey)) || [];
 
+  // Limpa o tbody (referência reaproveitada)
   tbody.innerHTML = "";
-
-  const theadExistente = tabela.querySelector("thead");
-  if (theadExistente) theadExistente.remove();
 
   if (processos.length === 0) {
     modoResultado = false;
 
+    thead.innerHTML = "";
+
     tbody.innerHTML = `
     <tr id="placeholder-row">
-      <td colspan="4" class="text-center text-gray-400 py-3">
+      <td colspan="4" class="text-center text-gray-400 py-6">
         Nenhum processo adicionado.
       </td>
     </tr>
@@ -35,63 +36,60 @@ function atualizarTabela() {
     return;
   }
 
-  const thead = modoResultado
+  const headerHTML = modoResultado
     ? `
-    <thead>
-      <tr class="border-b border-gray-300 text-center">
-        <th class="pb-4">Processo</th>
-        <th class="pb-4">Chegada</th>
-        <th class="pb-4">Execução</th>
-        <th class="pb-4">Início</th>
-        <th class="pb-4">Conclusão</th>
-        <th class="pb-4">Espera</th>
-        <th class="pb-4">Turnaround</th>
-        <th class="pb-4">Ação</th>
-      </tr>
-    </thead>
-    `
+    <tr class="border-b border-gray-300 text-center">
+      <th class="py-5 w-[12.5%]">Processo</th>
+      <th class="py-5 w-[12.5%]">Chegada</th>
+      <th class="py-5 w-[12.5%]">Execução</th>
+      <th class="py-5 w-[12.5%]">Início</th>
+      <th class="py-5 w-[12.5%]">Conclusão</th>
+      <th class="py-5 w-[12.5%]">Espera</th>
+      <th class="py-5 w-[12.5%]">Turnaround</th>
+      <th class="py-5 w-[12.5%]">Ação</th>
+    </tr>
+  `
     : `
-    <thead>
-      <tr class="border-b border-gray-300 text-center">
-        <th class="pb-4">Processo</th>
-        <th class="pb-4">Chegada</th>
-        <th class="pb-4">Execução</th>
-        <th class="pb-4">Ação</th>
-      </tr>
-    </thead>
-    `;
+    <tr class="border-b border-gray-300 text-center">
+      <th class="py-5 w-[25%]">Processo</th>
+      <th class="py-5 w-[25%]">Chegada</th>
+      <th class="py-5 w-[25%]">Execução</th>
+      <th class="py-5 w-[25%]">Ação</th>
+    </tr>
+  `;
 
-  tabela.innerHTML = thead;
-  tabela.appendChild(tbody);
-
+  thead.innerHTML = headerHTML;
+  tbody.innerHTML = "";
   processos.forEach((p, i) => {
     tbody.innerHTML += modoResultado
       ? `
-        <tr class="border-b border-gray-200 text-center">
-          <td class="py-3">${p.nome}</td>
-          <td class="py-3">${p.chegada}</td>
-          <td class="py-3">${p.execucao}</td>
-          <td class="py-3">${p.inicio}</td>
-          <td class="py-3">${p.conclusao}</td>
-          <td class="py-3">${p.espera}</td>
-          <td class="py-3">${p.turnaround}</td>
-          <td class="py-3">
-            <button class="btn-deletar  cursor-pointer" data-indice="${i}">
-              <img src="./assets/delete.svg" />
-            </button>
-          </td>
-        </tr>`
+      <tr class="border-b border-gray-200 text-center">
+        <td class="py-4 w-[12.5%]">${p.nome}</td>
+        <td class="py-4 w-[12.5%]">${p.chegada}</td>
+        <td class="py-4 w-[13%]">${p.execucao}</td>
+        <td class="py-4 w-[12.5%]">${p.inicio}</td>
+        <td class="py-4 w-[13%]">${p.conclusao}</td>
+        <td class="py-4 w-[12%]">${p.espera}</td>
+        <td class="py-4 w-[14%]">${p.turnaround}</td>
+        <td class="py-4 w-[12.5%]">
+          <button class="btn-deletar cursor-pointer" data-indice="${i}">
+            <img src="./assets/delete.svg" />
+          </button>
+        </td>
+      </tr>
+    `
       : `
-        <tr class="border-b border-gray-200 text-center">
-          <td class="py-3">${p.nome}</td>
-          <td class="py-3">${p.chegada}</td>
-          <td class="py-3">${p.execucao}</td>
-          <td class="py-3">
-            <button class="btn-deletar cursor-pointer" data-indice="${i}">
-              <img src="./assets/delete.svg" />
-            </button>
-          </td>
-        </tr>`;
+      <tr class="border-b border-gray-200 text-center">
+        <td class="py-4 w-[25%]">${p.nome}</td>
+        <td class="py-4 w-[25%]">${p.chegada}</td>
+        <td class="py-4 w-[27%]">${p.execucao}</td>
+        <td class="py-4 w-[27%]">
+          <button class="btn-deletar cursor-pointer" data-indice="${i}">
+            <img src="./assets/delete.svg" />
+          </button>
+        </td>
+      </tr>
+    `;
   });
 }
 
@@ -181,7 +179,7 @@ function gerarGantt(execucaoTimeline) {
     const duracao = item.fim - item.inicio;
 
     bloco.className =
-      "flex items-center justify-center text-white font-bold rounded-xl flex-shrink-0";
+      "flex items-center justify-center text-white font-bold shadow-md rounded-xl flex-shrink-0";
     bloco.style.width = `${duracao * 50}px`;
     bloco.style.height = "80px";
 
@@ -219,7 +217,7 @@ function gerarProcessos(numProcessos) {
   const processos = [];
   const max_execucao = 10;
 
-  for(let i = 0; i < numProcessos; i++) {
+  for (let i = 0; i < numProcessos; i++) {
     const nomeProcesso = `P${i + 1}`;
     const chegadaProcesso = i;
     const execucaoProcesso = Math.floor(Math.random() * max_execucao) + 1;
@@ -227,11 +225,11 @@ function gerarProcessos(numProcessos) {
     processos.push({
       nome: nomeProcesso,
       chegada: chegadaProcesso,
-      execucao: execucaoProcesso
+      execucao: execucaoProcesso,
     });
   }
   return processos;
-} 
+}
 
 form.addEventListener("submit", enviarProcessos);
 btnExecutar.addEventListener("click", executarEscalonamento);

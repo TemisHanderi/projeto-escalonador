@@ -16,7 +16,6 @@
     <title>Projeto Escalonador</title>
   </head>
   <body class="py-5 bg-background">
-
     <header class="w-2/3 mx-auto flex flex-col gap-2 pt-10">
       <h1 class="text-5xl font-bold">Simulador SJF - Shortest Job First</h1>
       <p class="text-gray-700 text-2xl">
@@ -25,7 +24,7 @@
     </header>
 
     <main class="w-2/3 mx-auto flex flex-col py-10 gap-10">
-      <section class="rounded-3xl border border-gray-300 bg-default p-8">
+      <section class="rounded-3xl border border-gray-300 bg-default shadow-md p-8">
         <form id="form-processo" class="flex flex-col gap-8">
           <fieldset class="flex justify-between">
             <legend class="text-left text-3xl font-medium pb-7">
@@ -40,7 +39,7 @@
                 id="processo"
                 name="processo"
                 placeholder="Ex: P1"
-                class="bg-gray-100 border border-gray-300 rounded-md py-1.5 px-3"
+                class="bg-gray-100 border border-gray-300 shadow-sm rounded-md py-1.5 px-3"
               />
             </div>
             <div class="flex flex-col w-[30%] gap-3">
@@ -52,7 +51,7 @@
                 id="chegada"
                 name="chegada"
                 placeholder="0"
-                class="bg-gray-100 border border-gray-300 rounded-md py-1.5 px-3"
+                class="bg-gray-100 border border-gray-300 shadow-sm rounded-md py-1.5 px-3"
               />
             </div>
             <div class="flex flex-col w-[30%] gap-3">
@@ -64,13 +63,13 @@
                 id="execucao"
                 name="execucao"
                 placeholder="5"
-                class="bg-gray-100 border border-gray-300 rounded-md py-1.5 px-3"
+                class="bg-gray-100 border border-gray-300 shadow-sm rounded-md py-1.5 px-3"
               />
             </div>
           </fieldset>
           <div class="flex justify-between">
             <button
-              class="text-default font-medium flex justify-center w-[70%] bg-primary rounded-md py-2 cursor-pointer"
+              class="text-default font-medium flex justify-center w-[70%] bg-primary rounded-md shadow-sm py-2 cursor-pointer"
               type="submit"
             >
               <img class="pr-1" src="./assets/add.svg" alt="Adicionar" />
@@ -78,7 +77,7 @@
             </button>
             <button
               id="btn-exemplos"
-              class="text-default font-medium flex justify-center w-[22%] bg-primaryl rounded-md py-2 cursor-pointer"
+              class="text-default font-medium flex justify-center w-[22%] bg-primaryl rounded-md shadow-sm py-2 cursor-pointer"
               type="button"
             >
               <img
@@ -94,36 +93,42 @@
 
       <section class="flex justify-between">
         <button
-          class="text-default font-medium flex justify-center bg-second w-[80%] rounded-md py-2 cursor-pointer"
+          class="text-default font-medium flex justify-center bg-second w-[80%] rounded-md shadow-md py-2 cursor-pointer"
         >
           <img class="pr-1" src="./assets/play.svg" alt="Executar" /> Executar
           Escalonamento
         </button>
         <button
           id="btn-resetar"
-          class="text-black border border-gray-300 font-medium flex justify-center bg-gray-200 w-[16%] rounded-md py-2 cursor-pointer"
+          class="text-black border border-gray-300 font-medium flex justify-center bg-gray-200 w-[16%] rounded-md shadow-md py-2 cursor-pointer"
         >
           <img class="pr-1" src="./assets/restart.svg" alt="Resetar" /> Resetar
         </button>
       </section>
 
-      <section
-        id="lista-processos"
-        class="flex border border-gray-300 justify-center py-6 bg-default rounded-3xl"
-      >
-        <table id="tabela" class="w-full border-collapse">
-          <tbody id="corpo-tabela">
-            <tr id="placeholder-row">
-              <td colspan="4" class="text-center text-gray-400 py-3">
-                Nenhum processo adicionado.
-              </td>
-            </tr>
-          </tbody>
+      <div class="bg-white rounded-xl shadow-md overflow-hidden">
+
+        <table class="w-full border-collapse text-center">
+          <thead id="table-head" class="bg-white text-black">
+          </thead>
         </table>
-      </section>
+
+        <div class="max-h-[380px] overflow-y-scroll">
+          <table class="w-full border-collapse text-center">
+            <tbody id="corpo-tabela">
+              <tr>
+                <td colspan="4" class="text-center text-gray-400 py-6">
+                  Nenhum processo adicionado.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <section class="flex justify-between">
         <article
-          class="medias hidden flex w-[45%] gap-5 bg-default border border-gray-300 rounded-2xl p-5"
+          class="medias hidden flex w-[45%] gap-5 bg-default border shadow-md border-gray-300 rounded-2xl p-5"
         >
           <img
             src="./assets/clock.svg"
@@ -137,7 +142,7 @@
         </article>
 
         <article
-          class="medias hidden flex w-[45%] gap-5 bg-default border border-gray-300 rounded-2xl p-5"
+          class="medias hidden flex w-[45%] gap-5 bg-default border shadow-md border-gray-300 rounded-2xl p-5"
         >
           <img
             src="./assets/trending.svg"
@@ -151,7 +156,10 @@
         </article>
       </section>
 
-      <section id="gantt-section" class="hidden rounded-3xl border border-gray-300 bg-default p-8">
+      <section
+        id="gantt-section"
+        class="hidden rounded-3xl border shadow-md border-gray-300 bg-default p-8"
+      >
         <h2 class="text-left text-3xl font-medium pb-7">Gráfico de Gantt</h2>
         <div class="overflow-x-auto p-2">
           <div
